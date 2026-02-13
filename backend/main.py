@@ -78,3 +78,5 @@ async def generate_interview_endpoint(
     )
 
     return {"interview_questions": result}
+
+## fixing the endpoint to accept form data instead of file upload for better compatibility with React frontend
