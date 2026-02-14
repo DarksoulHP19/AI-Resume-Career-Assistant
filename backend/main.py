@@ -62,6 +62,8 @@ async def match_jd_endpoint(
     )
 
     return {"match_result": result}
+# backend should be fixed for the JD matching endpoint to accept form data instead of file upload for better compatibility with React frontend
+# and change the endpoint to /match-jd for better clarity and consistency with the frontend's API calls
 
 
 # ------------------------------
