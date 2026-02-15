@@ -66,6 +66,7 @@ async def match_jd_endpoint(
 # and change the endpoint to /match-jd for better clarity and consistency with the frontend's API calls
 
 
+# plan to change whole backend to accept form data instead of file uploads for better compatibility with React frontend, and update endpoints accordingly for better clarity and consistency with the frontend's API calls.
 # ------------------------------
 # Interview Generator
 # ------------------------------
