@@ -1,5 +1,0 @@
-backend/
-├── main.py             # The FastAPI application
-├── ai_service.py       # Async AI logic
-├── .env                # API Keys
-└── requirements.txt    # Updated dependencies
