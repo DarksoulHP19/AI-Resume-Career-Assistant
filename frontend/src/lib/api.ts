@@ -71,5 +71,3 @@ export const generateInterview = async (payload: InterviewRequest): Promise<Inte
 
   return res.data;
 };
-
-// fixing code and connect with backend properly
