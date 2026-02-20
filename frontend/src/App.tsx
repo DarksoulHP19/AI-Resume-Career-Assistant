@@ -20,6 +20,7 @@ export default function App() {
           {step === 2 && <InterviewStep />}
         </main>
       </div>
+      // fixing the issue of context not being available in the components by wrapping the entire app with ResumeProvider 
     </ResumeProvider>
   );
 }
