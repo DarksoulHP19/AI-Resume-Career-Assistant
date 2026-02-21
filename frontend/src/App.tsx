@@ -21,7 +21,9 @@ function AppContent() {
 
   return (
     <LayoutShell>
-      <AssistantStepper step={step} />
+      <div className="print:hidden">
+        <AssistantStepper step={step} />
+      </div>
 
       <div className="mt-10">
         {step === 0 && <UploadStep next={() => setStep(1)} />}

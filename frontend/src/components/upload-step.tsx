@@ -70,7 +70,7 @@ export default function UploadStep({ next }: { next: () => void }) {
           size="lg" 
           onClick={handle} 
           disabled={!file || loading}
-          className="w-full h-14 text-lg font-bold shadow-lg"
+          className="w-full h-14 text-lg font-bold shadow-lg bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200 border-2 border-primary/20 transition-all"
         >
           {loading ? (
             <div className="flex items-center gap-3">

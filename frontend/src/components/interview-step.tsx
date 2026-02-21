@@ -32,19 +32,19 @@ export default function InterviewStep() {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <Card className="border-primary/10 shadow-lg">
-        <CardHeader className="border-b bg-muted/30 flex flex-row items-center justify-between">
+        <CardHeader className="border-b bg-muted/30 flex flex-row items-center justify-between print:border-none print:bg-transparent">
           <CardTitle className="flex items-center gap-2">
-            <span className="w-1.5 h-6 bg-primary rounded-full"></span>
+            <span className="w-1.5 h-6 bg-primary rounded-full print:hidden"></span>
             Interview Q&A Guide
           </CardTitle>
           {!loading && interview && (
-            <Button variant="ghost" size="sm" onClick={handle} className="text-muted-foreground hover:text-primary">
+            <Button variant="ghost" size="sm" onClick={handle} className="text-muted-foreground hover:text-primary print:hidden">
               <RefreshCw className="w-4 h-4 mr-2" />
               Regenerate
             </Button>
           )}
         </CardHeader>
-        <CardContent className="p-8">
+        <CardContent className="p-8 print:p-0">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20 space-y-6">
               <div className="relative">
@@ -60,17 +60,17 @@ export default function InterviewStep() {
             </div>
           ) : (
             <>
-              <div className="p-6 bg-muted/20 border border-primary/5 rounded-xl shadow-inner min-h-[400px]">
+              <div className="p-6 bg-muted/20 border border-primary/5 rounded-xl shadow-inner min-h-[400px] print:p-0 print:border-none print:shadow-none print:bg-transparent">
                 <MarkdownRenderer content={interview} />
               </div>
-              <div className="flex justify-end pt-8 gap-4">
+              <div className="flex justify-end pt-8 gap-4 print:hidden">
                 <Button onClick={() => window.print()} variant="outline" size="lg" className="border-primary/20 hover:bg-primary/5">
                   <Printer className="w-5 h-5 mr-2" />
                   Print Guide
                 </Button>
-                <Button onClick={() => window.location.reload()} variant="ghost" size="lg" className="text-muted-foreground underline hover:text-foreground">
+                <button onClick={() => window.location.reload()} className="text-sm text-muted-foreground underline hover:text-foreground">
                   Start New
-                </Button>
+                </button>
               </div>
             </>
           )}

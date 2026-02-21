@@ -2,9 +2,9 @@ import { ThemeToggle } from "./theme-toggle";
 
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      <div className="mx-auto max-w-4xl px-6 py-10">
-        <div className="flex justify-end mb-4">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300 print:bg-white print:text-black print:p-0">
+      <div className="mx-auto max-w-4xl px-6 py-10 print:max-w-none print:p-0">
+        <div className="flex justify-end mb-4 print:hidden">
           <ThemeToggle />
         </div>
         <div className="space-y-10">
