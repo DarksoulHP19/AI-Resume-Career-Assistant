@@ -43,7 +43,7 @@ async def analyze_resume_endpoint(file: UploadFile = File(...)):
 
     result = await analyze_resume(text)
 
-    return {"analysis": result}
+    return {"analysis": result, "resume_text": text}
 
  # fixed the endpoint to accept form data instead of file upload for better compatibility with React frontend
  

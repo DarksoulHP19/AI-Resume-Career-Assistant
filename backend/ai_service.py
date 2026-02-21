@@ -26,14 +26,14 @@ Resume:
 {resume_text}
 """
 
-    response = await client.responses.create(
+    response = await client.chat.completions.create(
         model=MODEL,
-        input=prompt,
-        max_output_tokens=500,
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=1000,
         temperature=0.3
     )
 
-    return response.output_text
+    return response.choices[0].message.content
 
 
 # ------------------------------
@@ -55,14 +55,14 @@ Job Description:
 {jd_text}
 """
 
-    response = await client.responses.create(
+    response = await client.chat.completions.create(
         model=MODEL,
-        input=prompt,
-        max_output_tokens=400,
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=800,
         temperature=0.2
     )
 
-    return response.output_text
+    return response.choices[0].message.content
 
 
 # ------------------------------
@@ -84,11 +84,11 @@ Job Description:
 {jd_text}
 """
 
-    response = await client.responses.create(
+    response = await client.chat.completions.create(
         model=MODEL,
-        input=prompt,
-        max_output_tokens=600,
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=1000,
         temperature=0.5
     )
 
-    return response.output_text
+    return response.choices[0].message.content

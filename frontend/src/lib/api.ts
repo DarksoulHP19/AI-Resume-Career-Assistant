@@ -31,6 +31,7 @@ export interface InterviewResponse {
 
 export interface AnalyzeResumeResponse {
   analysis: string;
+  resume_text: string;
 }
 
 // -----------------------------
