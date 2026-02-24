@@ -10,21 +10,43 @@ export default function UploadStep({ next }: { next: () => void }) {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
-  async function handle() {
-    if (!file) return;
-    setLoading(true);
-    try {
-      const res = await analyzeResume(file);
-      setAnalysis(res.analysis);
-      setResumeText(res.resume_text);
-      next();
-    } catch (e) {
-      console.error(e);
-      alert("Error analyzing resume. Please ensure it's a valid PDF and try again.");
-    } finally {
-      setLoading(false);
-    }
+ async function handle() {
+  if (!file) return;
+
+  // Defensive validation (frontend level)
+  if (file.type !== "application/pdf") {
+    alert("Only PDF files are allowed.");
+    return;
   }
+
+  setLoading(true);
+
+  try {
+    const res = await analyzeResume(file);
+
+    if (!res?.analysis || !res?.resume_text) {
+      throw new Error("Invalid server response");
+    }
+
+    setAnalysis(res.analysis);
+    setResumeText(res.resume_text);
+
+    next();
+  } catch (error: any) {
+    console.error("Analyze Resume Error:", error);
+
+    const backendMessage =
+      error?.response?.data?.detail ||
+      error?.response?.data?.message;
+
+    alert(
+      backendMessage ||
+        "Server not reachable. Ensure backend is running on port 8000."
+    );
+  } finally {
+    setLoading(false);
+  }
+}
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
