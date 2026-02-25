@@ -81,14 +81,19 @@ export default function LayoutShell({
             <div className="flex gap-4">
               <a
                 href="https://github.com/DarksoulHP19"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit GitHub Profile"
+                title="GitHub Profile"
                 className="p-2 bg-background border rounded-full hover:border-primary hover:text-primary transition-all shadow-sm"
               >
                 <Github className="w-4 h-4" />
               </a>
+
               <a
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=harshjpatel1974@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                aria-label="Send Email"
+                title="Send Email"
                 className="p-2 bg-background border rounded-full hover:border-primary hover:text-primary transition-all shadow-sm"
               >
                 <Mail className="w-4 h-4" />
