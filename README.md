@@ -1,86 +1,37 @@
-# AI-Resume-Career-Assistant
+# AI Resume & Career Assistant 🚀
 
-An AI-powered career assistant that helps users build resumes, optimize LinkedIn profiles, and practice for interviews. Features include JD-Resume matching and interview Q&amp;A generation.
-
-This project is designed as a **practical, high-impact full-stack application** using **OpenAI API + FastAPI + React**.
+An AI-powered career assistant that helps job seekers build better resumes, match them with job descriptions, and prepare for interviews using LLMs.
 
 ---
 
 ## 📌 Overview
 
-The **AI Resume & Career Assistant** helps job seekers by:
+The **AI Resume & Career Assistant** streamlines the job application process by providing:
 
-- Improving resumes using AI-driven feedback
-- Matching resumes with job descriptions (JD)
-- Generating tailored interview questions and answers
-- Optimizing LinkedIn profile content
-
-The goal is to **reduce manual effort** and **increase job readiness** using AI.
-
----
-
-## 🎯 Problem Statement
-
-Job seekers often struggle with:
-
-- Writing strong resumes
-- Tailoring resumes for specific job descriptions
-- Preparing effective interview answers
-- Optimizing LinkedIn profiles for visibility
-
-Existing tools are either generic or expensive.
-
----
-
-## 🧠 Solution
-
-An AI-driven assistant that:
-
-1. Analyzes resumes
-2. Provides actionable improvement suggestions
-3. Matches resumes with job descriptions
-4. Generates interview preparation content
-5. Optimizes professional profiles
+- **Resume Analysis**: AI-driven feedback on strengths, weaknesses, and ATS optimization.
+- **JD Matching**: Real-time matching of your resume against specific job descriptions.
+- **Interview Prep**: Automated generation of technical and behavioral questions tailored to your profile.
 
 ---
 
 ## ✨ Key Features
 
-### 📄 Resume Analysis
+### 📄 AI Resume Analysis
 
-- Upload resume in **PDF format**
-- Extract text and structure
-- AI-powered suggestions for:
-  - Bullet point clarity
-  - Skills optimization
-  - ATS-friendly formatting
-
----
+- Upload your resume in **PDF format**.
+- Automatic text extraction using `pdfplumber`.
+- Detailed feedback on bullet points, skills, and formatting.
 
 ### 🔍 JD → Resume Matching
 
-- Upload or paste job description
-- AI compares JD with resume
-- Skill gap analysis
-- Match score and improvement tips
-
----
-
-### 💼 LinkedIn Profile Optimization
-
-- Headline suggestions
-- About section rewrite
-- Keyword optimization for recruiters
-
----
+- Paste a job description to see how well you fit.
+- Get a **match score (0-100)**.
+- Identify missing skills and keyword gaps.
 
 ### 🎤 Interview Preparation
 
-- Generate interview questions based on:
-  - Resume
-  - Job description
-- AI-generated sample answers
-- Behavioral + technical questions
+- Generates **customized interview questions** based on both your resume and the target JD.
+- Includes sample answers to help you prepare effectively.
 
 ---
 
@@ -88,117 +39,89 @@ An AI-driven assistant that:
 
 ### Frontend
 
-- React
-- Tailwind CSS
-- Axios
+- **React 19** (TypeScript)
+- **Vite** (Fast build tool)
+- **Tailwind CSS 4** (Modern styling)
+- **Shadcn UI** (Accessible components)
+- **Axios** (API requests)
 
 ### Backend
 
-- FastAPI
-- Pydantic
-- JWT Authentication
-
-### AI
-
-- OpenAI API (LLMs)
-
-### Database (Optional / Extendable)
-
-- MongoDB
+- **FastAPI** (High-performance Python framework)
+- **OpenAI API** (GPT-4o-mini)
+- **pdfplumber** (PDF text extraction)
+- **Pydantic** (Data validation)
 
 ---
 
-## 🧩 System Architecture
+## 📂 Project Structure
 
-```code
-
-React Frontend
-↓
-FastAPI Backend
-├── Auth Service
-├── Resume Parser
-├── AI Services
-├── JD Matching Logic
-↓
-OpenAI API
-
-```
-
----
-
-## 📂 Project Structure (Proposed)
-
-```code
-
-ai-resume-career-assistant/
+```text
+Ai-Resume-Career-Assistant/
 ├── backend/
-│   ├── main.py
-│   ├── routes/
-│   ├── services/
-│   ├── models/
-│   └── utils/
+│   ├── main.py            # FastAPI entry point
+│   ├── ai_service.py      # OpenAI integration logic
+│   ├── requirements.txt   # Backend dependencies
+│   └── .env               # OpenAI API Key (needs to be created)
 ├── frontend/
 │   ├── src/
-│   ├── components/
-│   └── pages/
-├── README.md
-└── requirements.txt
-
+│   │   ├── components/    # UI & Step components
+│   │   ├── context/       # State management
+│   │   └── lib/           # API helper (axios)
+│   ├── package.json       # Frontend dependencies
+│   └── .env               # VITE_API_BASE_URL (needs to be created)
+└── README.md
 ```
 
 ---
 
-## ▶️ How to Run (High Level)
+## ▶️ How to Run
 
-- Backend
+### 1. Set up Environment Variables
+
+- Create a `.env` file in the `backend/` directory:
+
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+- Create a `.env` file in the `frontend/` directory:
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8000
+```
+
+### 2. Run the Backend
 
 ```bash
+cd backend
 pip install -r requirements.txt
-fastapi dev app.py
+fastapi dev main.py
 ```
 
-- Frontend
+### 3. Run the Frontend in another terminal
 
 ```bash
-npm install
-npm start
-```
-
----
-
-## 📈 Why This Project is Strong
-
-```code
-✔ Real-world use case
-✔ High demand in job market
-✔ Easy to explain to recruiters
-✔ Demonstrates full-stack + AI skills
-✔ Scalable into a SaaS product
+cd frontend
+npm install -- force  # To resolve any potential dependency conflicts because it  has a lot of dependencies and some of them are not compatible with each other
+npm run dev
 ```
 
 ---
 
 ## 🚀 Future Enhancements
 
-- Resume version tracking
-- Multiple JD comparisons
-- User dashboard with history
-- Resume scoring system
-- Deployment on cloud (AWS / Vercel)
+- 💼 LinkedIn Profile Optimization.
+- 📊 Resume Scoring & Version Tracking.
+- 💾 User Dashboard with History (Database integration).
+- ☁️ Deployment on AWS / Vercel.
 
 ---
 
 ## 🏁 Conclusion
 
-The **AI Resume & Career Assistant** showcases the ability to:
+The **AI Resume & Career Assistant** demonstrates the power of integrating LLMs into full-stack applications to solve real-world productivity challenges.
 
-- Build AI-powered applications
-- Integrate LLMs meaningfully
-- Design scalable full-stack systems
-- Solve real user problems
-
-This project is **portfolio-ready and interview-friendly**.
-
-- 📌 **Status:** In Progress
+- 📌 **Status:** V1.0 Complete ✅
 - 🚀 **Category:** Full-Stack AI Application
-- 🎯 **Target Users:** Students, Job Seekers, Professionals
+- 🎯 **Target Users:** Job Seekers, Students, Career Switchers
