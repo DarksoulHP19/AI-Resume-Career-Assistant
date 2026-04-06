@@ -14,7 +14,6 @@ import {
   FileText,
   CheckCircle2,
   ShieldCheck,
-  Sparkles,
   Zap,
 } from "lucide-react";
 
@@ -83,9 +82,6 @@ export default function UploadStep({ next }: UploadStepProps) {
       {/* LEFT SIDE */}
       <div className="lg:col-span-3 space-y-6">
         <Card className="border-2 border-dashed transition-all hover:border-primary/50 group relative overflow-hidden bg-linear-to-br from-card to-muted/20">
-          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-125 transition-transform">
-            <Sparkles className="w-12 h-12 text-primary" />
-          </div>
 
           <CardHeader className="text-center pt-10">
             <div className="mx-auto bg-primary/10 p-5 rounded-full w-20 h-20 flex items-center justify-center mb-6 transition-transform group-hover:scale-110 shadow-inner ring-4 ring-primary/5">

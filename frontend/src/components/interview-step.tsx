@@ -3,8 +3,7 @@ import { generateInterview } from "@/lib/api";
 import { useResume } from "@/context/resume-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MarkdownRenderer } from "./markdown-renderer";
-import { Printer, RefreshCw } from "lucide-react";
+import { Printer, RefreshCw, Terminal, Users, CheckCircle2 } from "lucide-react";
 
 export default function InterviewStep() {
   const { resumeText, jdText, interview, setInterview } = useResume();
@@ -45,8 +44,8 @@ export default function InterviewStep() {
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <Card className="border-primary/10 shadow-lg">
-        <CardHeader className="border-b bg-muted/30 flex flex-row items-center justify-between print:border-none print:bg-transparent">
+      <Card className="glass-card shadow-lg border-primary/20">
+        <CardHeader className="border-b border-primary/10 bg-muted/30 flex flex-row items-center justify-between print:border-none print:bg-transparent">
           <CardTitle className="flex items-center gap-2">
             <span className="w-1.5 h-6 bg-primary rounded-full print:hidden"></span>
             Interview Q&A Guide
@@ -54,10 +53,10 @@ export default function InterviewStep() {
 
           {!loading && interview && (
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={handleGenerate}
-              className="text-muted-foreground hover:text-primary print:hidden"
+              className="text-primary hover:bg-primary/10 border-primary/20 print:hidden shadow-sm"
             >
               <RefreshCw className="w-4 h-4 mr-2" />
               Regenerate
@@ -86,24 +85,79 @@ export default function InterviewStep() {
             </div>
           ) : (
             <>
-              <div className="p-6 bg-muted/20 border border-primary/5 rounded-xl shadow-inner min-h-100 print:p-0 print:border-none print:shadow-none print:bg-transparent">
-                {error ? (
-                  <div className="text-red-500 text-center py-10">{error}</div>
-                ) : (
-                  <MarkdownRenderer content={interview ?? ""} />
-                )}
-              </div>
+              {error ? (
+                <div className="text-red-500 text-center py-10 glass-card rounded-xl">{error}</div>
+              ) : interview ? (
+                <div className="space-y-10 min-h-100 print:p-0 print:border-none print:shadow-none print:bg-transparent">
+                  
+                  <div className="grid md:grid-cols-2 gap-8 print:block">
+                    {/* Technical Questions */}
+                    <div className="space-y-4">
+                      <h4 className="font-bold text-xl text-primary flex items-center gap-2">
+                        <Terminal className="w-5 h-5" /> Technical Questions
+                      </h4>
+                      <div className="space-y-3">
+                        {interview.technical_questions.map((q, idx) => (
+                          <div key={`tech-${idx}`} className="p-4 bg-primary/5 rounded-xl border border-primary/10 print:break-inside-avoid print:mb-4">
+                             <div className="text-sm font-semibold flex gap-2">
+                               <span className="text-primary font-black shrink-0">{idx + 1}.</span>
+                               <span>{q}</span>
+                             </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
 
-              <div className="flex justify-end pt-8 gap-4 print:hidden">
+                    {/* Behavioral Questions */}
+                    <div className="space-y-4 print:mt-8">
+                      <h4 className="font-bold text-xl text-secondary flex items-center gap-2">
+                        <Users className="w-5 h-5" /> Behavioral Questions
+                      </h4>
+                      <div className="space-y-3">
+                        {interview.behavioral_questions.map((q, idx) => (
+                          <div key={`beh-${idx}`} className="p-4 bg-secondary/5 rounded-xl border border-secondary/10 print:break-inside-avoid print:mb-4">
+                             <div className="text-sm font-semibold flex gap-2">
+                               <span className="text-secondary font-black shrink-0">{idx + 1}.</span>
+                               <span>{q}</span>
+                             </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr className="border-border" />
+
+                  {/* Sample Answers */}
+                  <div className="space-y-6">
+                    <h4 className="font-bold text-2xl flex items-center gap-2 text-foreground/80">
+                       <CheckCircle2 className="w-6 h-6 text-green-500" /> Sample Best Answers
+                    </h4>
+                    <div className="grid lg:grid-cols-2 gap-8 print:block">
+                      {interview.sample_answers.map((sa, idx) => (
+                        <div key={`ans-${idx}`} className="glass-card p-6 rounded-2xl border-primary/20 relative shadow-sm print:break-inside-avoid print:mb-6 print:bg-white print:border-gray-200">
+                           <div className="absolute top-0 right-0 p-3 opacity-20">
+                              <span className="text-6xl font-black italic">A</span>
+                           </div>
+                           <h5 className="font-bold text-lg mb-3 flex gap-2 pr-10 print:text-black">
+                             <span className="text-primary">Q:</span> {sa.question}
+                           </h5>
+                           <div className="bg-background/40 p-4 rounded-xl border border-border text-sm leading-relaxed text-muted-foreground print:text-black print:bg-transparent print:border-gray-200">
+                              {sa.answer}
+                           </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+
+              <div className="flex justify-end pt-12 gap-4 print:hidden">
                 <Button
                   onClick={() => {
                     const originalTitle = document.title;
-
                     document.title = "InterviewQuestions";
-
                     window.print();
-
-                    // Restore title after printing
                     setTimeout(() => {
                       document.title = originalTitle;
                     }, 1000);
@@ -117,7 +171,7 @@ export default function InterviewStep() {
                 </Button>
                 <button
                   onClick={() => window.location.reload()}
-                  className="text-sm text-muted-foreground underline hover:text-foreground"
+                  className="text-sm font-bold text-muted-foreground underline underline-offset-4 hover:text-foreground pl-4"
                 >
                   Start New
                 </button>

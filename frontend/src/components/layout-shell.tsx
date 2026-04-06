@@ -1,18 +1,38 @@
 import { ThemeToggle } from "./theme-toggle";
 import { Briefcase, Github, Mail } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function LayoutShell({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (typeof window !== "undefined") {
+        if (window.scrollY > lastScrollY && window.scrollY > 50) {
+          setIsVisible(false);
+        } else {
+          setIsVisible(true);
+        }
+        setLastScrollY(window.scrollY);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300 print:bg-white print:text-black print:p-0 flex flex-col">
       {/* Header */}
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50 print:hidden">
-        <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 group cursor-default">
-            <div className="bg-primary p-1.5 rounded-lg text-primary-foreground group-hover:rotate-6 transition-transform">
+      <header className={`border-b border-border/40 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 print:hidden shadow-sm transition-transform duration-300 ease-in-out ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="w-full px-6 md:px-12 h-16 flex items-center justify-between">
+          <a href="/" className="flex items-center gap-2 group cursor-pointer">
+            <div className="bg-primary p-1.5 rounded-lg text-primary-foreground group-hover:rotate-6 transition-transform shadow-md">
               <Briefcase className="w-5 h-5" />
             </div>
             <span className="font-bold text-xl tracking-tight">
@@ -21,7 +41,7 @@ export default function LayoutShell({
                 AI
               </span>
             </span>
-          </div>
+          </a>
           <div className="flex items-center gap-4">
             <ThemeToggle />
           </div>

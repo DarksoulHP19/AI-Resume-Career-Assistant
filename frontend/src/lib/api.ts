@@ -17,7 +17,11 @@ export interface JDMatchRequest {
 }
 
 export interface JDMatchResponse {
-  match_result: string;
+  match_result: {
+    match_score: number;
+    missing_skills: string[];
+    suggestions: string[];
+  };
 }
 
 export interface InterviewRequest {
@@ -26,16 +30,25 @@ export interface InterviewRequest {
 }
 
 export interface InterviewResponse {
-  interview_questions: string;
+  interview_questions: {
+    technical_questions: string[];
+    behavioral_questions: string[];
+    sample_answers: { question: string; answer: string }[];
+  };
 }
 
 export interface AnalyzeResumeResponse {
-  analysis: string;
+  analysis: {
+    strengths: string[];
+    weaknesses: string[];
+    suggestions: string[];
+    ats_optimization: string[];
+  };
   resume_text: string;
 }
 
 // -----------------------------
-// API Calls (multipart/form-data)
+// API Calls
 // -----------------------------
 
 export const analyzeResume = async (file: File): Promise<AnalyzeResumeResponse> => {
@@ -50,24 +63,16 @@ export const analyzeResume = async (file: File): Promise<AnalyzeResumeResponse> 
 };
 
 export const matchJD = async (payload: JDMatchRequest): Promise<JDMatchResponse> => {
-  const form = new FormData();
-  form.append("resume_text", payload.resume_text);
-  form.append("jd_text", payload.jd_text);
-
-  const res = await api.post("/match-jd", form, {
-    headers: { "Content-Type": "multipart/form-data" },
+  const res = await api.post("/match-jd", payload, {
+    headers: { "Content-Type": "application/json" },
   });
 
   return res.data;
 };
 
 export const generateInterview = async (payload: InterviewRequest): Promise<InterviewResponse> => {
-  const form = new FormData();
-  form.append("resume_text", payload.resume_text);
-  form.append("jd_text", payload.jd_text);
-
-  const res = await api.post("/generate-interview", form, {
-    headers: { "Content-Type": "multipart/form-data" },
+  const res = await api.post("/generate-interview", payload, {
+    headers: { "Content-Type": "application/json" },
   });
 
   return res.data;
