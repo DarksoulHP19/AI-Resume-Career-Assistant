@@ -109,6 +109,62 @@ npm run dev
 
 ---
 
+## 🖼️ Image
+
+![Homepage](image.png)
+![alt text](image-1.png)
+
+---
+
+## 🧠 Ai logic
+
+```code
+
+ User Input                                                                                                                                                                                                                             
+     |                                                                                                                                                                                                                                   
+     v
+  Frontend (React)                                                                                                                                                                                                                       
+     |                                                                                                                                                                                                                                   
+     |-- upload PDF --------------------> POST /analyze-resume                                                                                                                                                                           
+     |-- paste JD + resume text --------> POST /match-jd                                                                                                                                                                                 
+     |-- paste JD + resume text --------> POST /generate-interview                                                                                                                                                                       
+     |                                                                                                                                                                                                                                   
+     v                                                                                                                                                                                                                                   
+  FastAPI Router                                                                                                                                                                                                                         
+     |                                                                                                                                                                                                                                   
+     |-- /analyze-resume                                                                                                                                                                                                                 
+     |     -> extract PDF text with pdfplumber                                                                                                                                                                                           
+     |     -> trim to 4000 chars                                                                                                                                                                                                         
+     |     -> call OpenAI                                                                                                                                                                                                                
+     |     -> return strict JSON
+     |                                                                                                                                                                                                                                   
+     |-- /match-jd                                                                                                                                                                                                                       
+     |     -> validate request with Pydantic                                                                                                                                                                                             
+     |     -> trim resume/jd to 4000 chars                                                                                                                                                                                               
+     |     -> call OpenAI                                                                                                                                                                                                                
+     |     -> return strict JSON                                                                                                                                                                                                         
+     |                                                                                                                                                                                                                                   
+     |-- /generate-interview                                                                                                                                                                                                             
+           -> validate request with Pydantic                                                                                                                                                                                             
+           -> trim resume/jd to 4000 chars                                                                                                                                                                                               
+           -> call OpenAI                                                                                                                                                                                                                
+           -> return strict JSON                                                                                                                                                                                                         
+                                                                                                                                                                                                                                         
+  LLM Layer                                                                                                                                                                                                                              
+     |                                                                                                                                                                                                                                   
+     v                                                                                                                                                                                                                                   
+  OpenAI AsyncOpenAI client                                                                                                                                                                                                              
+     |                                                                                                                                                                                                                                   
+     v                                                                                                                                                                                                                                   
+  Prompt-based response generation                                                                                                                                                                                                       
+     |                                                                                                                                                                                                                                   
+     v                                                                                                                                                                                                                                   
+  JSON parsed and sent back to frontend                                                                                                                                                                                                  
+                                                      
+```
+
+---
+
 ## 🚀 Future Enhancements
 
 - 💼 LinkedIn Profile Optimization.
