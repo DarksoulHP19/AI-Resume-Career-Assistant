@@ -33,7 +33,7 @@ The **AI Resume & Career Assistant** streamlines the job application process by 
 - Generates **customized interview questions** based on both your resume and the target JD.
 - Includes sample answers to help you prepare effectively.
 
----
+-----
 
 ## 🏗️ Tech Stack
 
