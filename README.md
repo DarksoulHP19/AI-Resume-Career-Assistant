@@ -12,7 +12,7 @@ The **AI Resume & Career Assistant** streamlines the job application process by 
 - **JD Matching**: Real-time matching of your resume against specific job descriptions.
 - **Interview Prep**: Automated generation of technical and behavioral questions tailored to your profile.
 
----
+-----
 
 ## ✨ Key Features
 
